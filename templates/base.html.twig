@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="logo">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('image/logo/logo_white_fbdn.png') }}" alt="Logo FBDN">
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="">Acceuil</a></li>
+                    <li><a href="">Boutique</a></li>
+                    <li><a href="">Forum</a></li>
+                    <li><a href="">Panier</a></li>
+                </ul>
+                <div id="header-buttons">
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="" class="header-button">Admin</a>
+                    {% endif %}
+                    {% if app.user %}
+                    <a href="" class="header-button">Mon compte</a>
+                    <a href="{{ path('app_logout') }}" class="header-button">Deconnexion</a>
+                    {% else %}
+                    <a href="{{ path('app_register')}}" class="header-button">Inscription</a>
+                    <a href="{{ path('app_login')}}" class="header-button">Connexion</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div id="wrapper">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
